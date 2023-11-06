@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>Tuotelista</title>
+</head>
+<body>
+	<h1>Tuotteet</h1>
+	<table>
+		<tbody>
+		<tr>
+	<th>Nimi</th>
+	<th>Väri</th>
+	<th>Valmistaja</th>
+	<th>Julkaisupaivamaara</th>
+	<th>Hinta</th>
+	</tr>
+			<tr th:each = "tuote: ${Tuotteet}">
+				<td th:text="${tuote.nimi}"></td>
+				<td th:text="${tuote.vari}"></td>
+				<td th:text="${tuote.valmistaja.nimi}"></td>
+				<td th:text="${tuote.julkaisupaivamaara}"></td>
+				<td th:text="${tuote.hinta}"></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="add" sec:authorize="hasAuthority('ADMIN')">Lisää tuote</a>
+	<form th:action="@{/logout}" method="post">
+	<input type="submit" value="Sign out" class="btn btn-sm btn-danger"/>
+	</form>
+</body>
+</html>
