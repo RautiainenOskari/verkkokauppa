@@ -6,6 +6,8 @@
 </head>
 <body>
 	<h1>Tuotteet</h1>
+	
+	<a href="/addTuote" class="btn btn-primary">Lisää tuote</a>
 	<table>
 		<tbody>
 		<tr>
@@ -21,6 +23,12 @@
 				<td th:text="${tuote.valmistaja.nimi}"></td>
 				<td th:text="${tuote.julkaisupaivamaara}"></td>
 				<td th:text="${tuote.hinta}"></td>
+				
+				<td><a th:href="@{/editTuote/{id}(id=${tuote.id})}"
+					class="btn btn-primary" >Muokkaa</a></td>
+					
+				<td><a th:href="@{/deleteTuote/{id}(id=${tuote.id})}"
+					class="btn btn-danger">Poista</a></td>
 			</tr>
 		</tbody>
 	</table>

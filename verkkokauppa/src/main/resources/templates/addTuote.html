@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lisää Tuote</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Lisää Tuote</h1>
+	<div>
+		<form th:object="${tuote}" th:action="@{saveTuote}" action="#" method="post">
+		  	<label for="tyyppi">Nimi</label>
+			<input type="text" id="nimi" th:field="*{nimi}" />
+			<div style="clear: both; display: block; height: 20px;"></div>
+			
+		  	<label for="vari">Väri</label>
+			<input type="text" id="vari" th:field="*{vari}" />
+			<div style="clear: both; display: block; height: 20px;"></div>
+			
+			<div class="form-group" style="clear: both; display: block; height: 40px;">
+    		<label for="valmistaja">Valmistaja</label>
+    		<select th:field="*{valmistaja}" class="form-control">
+       		 <option th:each="valmistaja : ${valmistajat}" th:value="${valmistaja.valmistajaId}" th:text="${valmistaja.nimi}"></option>
+    		</select>
+			</div>
+			
+			<label for="julkaisupaivamaara">Julkaisuvuosi</label>
+			<input type="text" id="julkaisupaivamaara" th:field="*{julkaisupaivamaara}" />
+			<div style="clear: both; display: block; height: 20px;"></div>
+			
+			<label for="hinta">Hinta</label>
+			<input type="text" id="hinta" th:field="*{hinta}" />
+			<div style="clear: both; display: block; height: 20px;"></div>
+			
+			
+			<input type="submit" value="Tallenna"></input>
+		</form>
+	</div>
+</body>
+</html>

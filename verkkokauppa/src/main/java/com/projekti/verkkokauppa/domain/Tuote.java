@@ -16,7 +16,7 @@ public class Tuote {
 	private String nimi, vari;
 	
 	@ManyToOne
-	@JoinColumn(name = "valmistaja_id")
+	@JoinColumn(name = "valmistajaId")
 	private Valmistaja valmistaja;
 	private Integer Julkaisupaivamaara;
 	private Double hinta;
