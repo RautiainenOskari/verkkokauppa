@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.projekti.verkkokauppa.domain.TuoteRepository;
+import com.projekti.verkkokauppa.domain.Valmistaja;
 import com.projekti.verkkokauppa.domain.ValmistajaRepository;
 import com.projekti.verkkokauppa.domain.Tuote;
 
@@ -48,6 +49,24 @@ public class TuoteController {
 			return "redirect:tuotelista";
 		}
 		
+		@RequestMapping("/valmistajat")
+		public String valmistajaLista(Model model) {
+			model.addAttribute("Valmistajat", vrepository.findAll());
+			return "valmistajat";	
+		}
+		
+		 @RequestMapping(value = "addValmistaja")
+			public String addValmistaja (Model model) {
+				model.addAttribute("valmistaja", new Valmistaja());
+				return "addValmistaja";
+			}
+		 
+			@RequestMapping(value = "/saveValmistaja", method = RequestMethod.POST)
+			public String saveValmistaja (Valmistaja valmistaja) {
+				vrepository.save(valmistaja);
+				return "redirect:valmistajat";
+			}
+		
 		@RequestMapping(value = "/editTuote/{id}")
 		public String editTuote(@PathVariable("id") Long Id, Model model){
 			model.addAttribute("tuote", trepository.findById(Id));
@@ -60,5 +79,11 @@ public class TuoteController {
 		public String deleteTuote(@PathVariable Long id) {
 			trepository.deleteById(id);
 			return "redirect:/tuotelista";
+	}
+		
+		@RequestMapping(value = "/deleteValmistaja/{id}", method = RequestMethod.GET)
+		public String deleteValmistaja(@PathVariable Long id) {
+			vrepository.deleteById(id);
+			return "redirect:/valmistajat";
 	}
 }

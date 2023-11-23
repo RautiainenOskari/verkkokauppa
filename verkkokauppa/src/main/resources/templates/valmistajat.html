@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title>Valmistajat</title>
+</head>
+<body>
+	<h1>Valmistajat</h1>
+	
+	<a sec:authorize="hasAuthority('ADMIN')" href="/addValmistaja" class="btn btn-primary">Lisää tuote</a>
+	<table>
+		<tbody>
+		<tr>
+	<th>Nimi</th>
+
+	</tr>
+			<tr th:each = "valmistaja: ${Valmistajat}">
+				<td th:text="${valmistaja.nimi}"></td>
+				
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deleteValmistaja/{id}(id=${valmistaja.valmistajaId})}"
+					class="btn btn-danger">Poista</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="/index" class="btn btn-primary">Takaisin</a>
+</body>
+</html>

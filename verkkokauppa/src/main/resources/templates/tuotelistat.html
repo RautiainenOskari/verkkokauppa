@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 <title>Tuotelista</title>
@@ -7,7 +7,7 @@
 <body>
 	<h1>Tuotteet</h1>
 	
-	<a href="/addTuote" class="btn btn-primary">Lisää tuote</a>
+	<a sec:authorize="hasAuthority('ADMIN')" href="/addTuote" class="btn btn-primary">Lisää tuote</a>
 	<table>
 		<tbody>
 		<tr>
@@ -24,13 +24,14 @@
 				<td th:text="${tuote.julkaisupaivamaara}"></td>
 				<td th:text="${tuote.hinta}"></td>
 				
-				<td><a th:href="@{/editTuote/{id}(id=${tuote.id})}"
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editTuote/{id}(id=${tuote.id})}"
 					class="btn btn-primary" >Muokkaa</a></td>
 					
-				<td><a th:href="@{/deleteTuote/{id}(id=${tuote.id})}"
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deleteTuote/{id}(id=${tuote.id})}"
 					class="btn btn-danger">Poista</a></td>
 			</tr>
 		</tbody>
 	</table>
+	<a href="/index" class="btn btn-primary">Takaisin</a>
 </body>
 </html>

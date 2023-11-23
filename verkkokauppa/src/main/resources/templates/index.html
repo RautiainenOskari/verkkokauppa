@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Verkkokauppa</title>
 </head>
 <body>
     <h1>Verkkokauppa</h1>
     <a href="/tuotelista" class="btn btn-primary">Tuotteet</a>
+    <a sec:authorize="hasAuthority('ADMIN')" href="/valmistajat" class="btn btn-primary">Valmistajat</a>
+    
+    <form th:action="@{/logout}" method="post">
+			<input type="submit" value="Kirjaudu ulos" class="btn btn-sm btn-danger"/>
+		</form>
     
 </body>
 </html>
