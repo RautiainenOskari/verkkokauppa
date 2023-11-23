@@ -10,11 +10,13 @@
 		<form th:object="${valmistaja}" th:action="@{saveValmistaja}" action="#" method="post">
 		  	<label for="tyyppi">Nimi</label>
 			<input type="text" id="nimi" th:field="*{nimi}" />
+			<span th:if="${#fields.hasErrors('nimi')}" th:errors="*{nimi}">error</span>
 			<div style="clear: both; display: block; height: 10px;"></div>
 				
 			
 			<input type="submit" value="Save"></input>
 		</form>
 	</div>
+	<a href="/valmistajat" class="btn btn-primary">Takaisin</a>
 </body>
 </html>

@@ -7,18 +7,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 @Entity
 public class Tuote {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
+	@NotEmpty
 	private String nimi, vari;
 	
+
 	@ManyToOne
 	@JoinColumn(name = "valmistajaId")
 	private Valmistaja valmistaja;
+
+	@NotNull
+	
 	private Integer Julkaisupaivamaara;
+	@NotNull
+	
 	private Double hinta;
 	
 	public Tuote() {}
@@ -78,5 +89,11 @@ public class Tuote {
 
 	public void setHinta(Double hinta) {
 		this.hinta = hinta;
+	}
+	
+	@Override
+	public String toString() {
+		return "Tuote [id=" + id + ", nimi=" + nimi + ", vari=" + vari + ", valmistaja=" + valmistaja
+				+ ", julkaisuaika=" + Julkaisupaivamaara + ", hinta=" + hinta + "]";
 	}
 }

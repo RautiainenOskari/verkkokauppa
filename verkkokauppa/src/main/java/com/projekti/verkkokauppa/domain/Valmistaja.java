@@ -10,12 +10,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Valmistaja {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long valmistajaId;
+	@NotEmpty
 	private String nimi;
 	
 	@JsonIgnore
