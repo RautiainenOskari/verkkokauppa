@@ -24,81 +24,92 @@ public class TuoteController {
 	private TuoteRepository trepository;
 	@Autowired
 	private ValmistajaRepository vrepository;
-	
+
+	//Listaa tuotteet
 	@RequestMapping("/tuotelista")
 	public String tuoteLista(Model model) {
 		model.addAttribute("Tuotteet", trepository.findAll());
-		return "tuotelistat";	
+		return "tuotelistat";
 	}
-	
-	@GetMapping({"/", "index"})
+
+	//Etusivu
+	@GetMapping({ "/", "index" })
 	public String showHome() {
 		return "index";
 	}
 	
-	 @RequestMapping(value="/login")
-	    public String login() {	
-	        return "login";
-	    }	
-	 
-	 @RequestMapping(value = "addTuote")
-		public String addTuote (Model model) {
-			model.addAttribute("tuote", new Tuote());
+	//Kirjautuminen
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login";
+	}
+
+	//Tuotteen lisääminen
+	@RequestMapping(value = "addTuote")
+	public String addTuote(Model model) {
+		model.addAttribute("tuote", new Tuote());
+		model.addAttribute("valmistajat", vrepository.findAll());
+		return "addTuote";
+	}
+
+	//Tuotteen tallentaminen
+	@RequestMapping(value = "/saveTuote", method = RequestMethod.POST)
+	public String saveTuote(@Valid @ModelAttribute("tuote") Tuote tuote, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			System.out.println("Virhe" + tuote);
 			model.addAttribute("valmistajat", vrepository.findAll());
 			return "addTuote";
 		}
-	 
-		@RequestMapping(value = "/saveTuote", method = RequestMethod.POST)
-		public String saveTuote (@Valid @ModelAttribute("tuote")Tuote tuote, BindingResult bindingResult, Model model) {
-			if (bindingResult.hasErrors()) {
-				System.out.println("Virhe" + tuote);
-				model.addAttribute("valmistajat", vrepository.findAll());
-			    return "addTuote";
-			}
-			
-			trepository.save(tuote);
-			return "redirect:tuotelista";
-		}
-		
-		@RequestMapping("/valmistajat")
-		public String valmistajaLista(Model model) {
-			model.addAttribute("Valmistajat", vrepository.findAll());
-			return "valmistajat";	
-		}
-		
-		 @RequestMapping(value = "addValmistaja")
-			public String addValmistaja (Model model) {
-				model.addAttribute("valmistaja", new Valmistaja());
-				return "addValmistaja";
-			}
-		 
-			@RequestMapping(value = "/saveValmistaja", method = RequestMethod.POST)
-			public String saveValmistaja (@Valid @ModelAttribute("valmistaja")Valmistaja valmistaja, BindingResult bindingResult) {
-				if (bindingResult.hasErrors()) {
-					System.out.println("Virhe" + valmistaja);
-					return "addValmistaja";
-				}
-				vrepository.save(valmistaja);
-				return "redirect:valmistajat";
-			}
-		
-		@RequestMapping(value = "/editTuote/{id}")
-		public String editTuote(@PathVariable("id") Long Id, Model model){
-			model.addAttribute("tuote", trepository.findById(Id));
-			model.addAttribute("valmistajat", vrepository.findAll());
-			return "editTuote";
-		}
-		
-		
-		@RequestMapping(value = "/deleteTuote/{id}", method = RequestMethod.GET)
-		public String deleteTuote(@PathVariable Long id) {
-			trepository.deleteById(id);
-			return "redirect:/tuotelista";
+
+		trepository.save(tuote);
+		return "redirect:tuotelista";
 	}
-		
-		@RequestMapping(value = "/deleteValmistaja/{id}", method = RequestMethod.GET)
-		public String deleteValmistaja(@PathVariable Long id) {
-			vrepository.deleteById(id);
-			return "redirect:/valmistajat";
+
+	//Listaa valmistajat
+	@RequestMapping("/valmistajat")
+	public String valmistajaLista(Model model) {
+		model.addAttribute("Valmistajat", vrepository.findAll());
+		return "valmistajat";
+	}
+
+	//Lisää valmistajan
+	@RequestMapping(value = "addValmistaja")
+	public String addValmistaja(Model model) {
+		model.addAttribute("valmistaja", new Valmistaja());
+		return "addValmistaja";
+	}
+
+	//Tallentaa valmistajan
+	@RequestMapping(value = "/saveValmistaja", method = RequestMethod.POST)
+	public String saveValmistaja(@Valid @ModelAttribute("valmistaja") Valmistaja valmistaja,
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			System.out.println("Virhe" + valmistaja);
+			return "addValmistaja";
+		}
+		vrepository.save(valmistaja);
+		return "redirect:valmistajat";
+	}
+
+	//Muokkaa tuotetta
+	@RequestMapping(value = "/editTuote/{id}")
+	public String editTuote(@PathVariable("id") Long Id, Model model) {
+		model.addAttribute("tuote", trepository.findById(Id));
+		model.addAttribute("valmistajat", vrepository.findAll());
+		return "editTuote";
+	}
+
+	//Poistaa tuotteen
+	@RequestMapping(value = "/deleteTuote/{id}", method = RequestMethod.GET)
+	public String deleteTuote(@PathVariable Long id) {
+		trepository.deleteById(id);
+		return "redirect:/tuotelista";
+	}
+
+	//Poistaa valmistajan
+	@RequestMapping(value = "/deleteValmistaja/{id}", method = RequestMethod.GET)
+	public String deleteValmistaja(@PathVariable Long id) {
+		vrepository.deleteById(id);
+		return "redirect:/valmistajat";
 	}
 }
