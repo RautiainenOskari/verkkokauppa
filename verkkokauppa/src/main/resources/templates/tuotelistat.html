@@ -17,13 +17,15 @@
 	<th>Julkaisuvuosi</th>
 	<th>Hinta</th>
 	</tr>
-			<tr th:each = "tuote: ${Tuotteet}">
+			<tr th:each = "tuote: ${Tuotteet}" >
 				<td th:text="${tuote.nimi}"></td>
 				<td th:text="${tuote.vari}"></td>
 				<td th:text="${tuote.valmistaja.nimi}"></td>
 				<td th:text="${tuote.julkaisupaivamaara}"></td>
 				<td th:text="${tuote.hinta}"></td>
-				
+				 <td>
+				<img th:src="@{${tuote.kuva}}" alt="Tuote kuva"  th:style="'max-height: 150px'"/>
+				</td>
 				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editTuote/{id}(id=${tuote.id})}"
 					class="btn btn-primary" >Muokkaa</a></td>
 					

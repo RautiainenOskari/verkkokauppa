@@ -1,10 +1,12 @@
 package com.projekti.verkkokauppa.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -32,15 +34,18 @@ public class Tuote {
 	
 	private Double hinta;
 	
+	private String kuva;
+	
 	public Tuote() {}
 	
-	public Tuote(String nimi, String vari, Valmistaja valmistaja, Integer julkaisupaivamaara, Double hinta) {
+	public Tuote(String nimi, String vari, Valmistaja valmistaja, Integer julkaisupaivamaara, Double hinta, String kuva) {
 		super();
 		this.nimi = nimi;
 		this.vari = vari;
 		this.valmistaja = valmistaja;
 		Julkaisupaivamaara = julkaisupaivamaara;
 		this.hinta = hinta;
+		this.kuva = kuva;
 	}
 
 	public long getId() {
@@ -96,4 +101,15 @@ public class Tuote {
 		return "Tuote [id=" + id + ", nimi=" + nimi + ", vari=" + vari + ", valmistaja=" + valmistaja
 				+ ", julkaisuaika=" + Julkaisupaivamaara + ", hinta=" + hinta + "]";
 	}
+
+	@Lob
+	@Column(name = "Kuva", length = Integer.MAX_VALUE, nullable = true)
+	public String getKuva() {
+		return kuva;
+	}
+
+	public void setKuva(String kuva) {
+		this.kuva = kuva;
+	}
+	
 }

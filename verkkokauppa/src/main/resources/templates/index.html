@@ -8,8 +8,9 @@
     <a href="/tuotelista" class="btn btn-primary">Tuotteet</a>
     <a sec:authorize="hasAuthority('ADMIN')" href="/valmistajat" class="btn btn-primary">Valmistajat</a>
     
-    <form th:action="@{/logout}" method="post">
-			<input type="submit" value="Kirjaudu ulos" class="btn btn-sm btn-danger"/>
+    
+	<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Kirjaudu sisään/ulos" class="btn btn-sm btn-danger"/>
 		</form>
     
 </body>

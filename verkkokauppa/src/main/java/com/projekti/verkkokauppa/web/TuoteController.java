@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.projekti.verkkokauppa.domain.TuoteRepository;
 import com.projekti.verkkokauppa.domain.Valmistaja;
@@ -54,13 +55,14 @@ public class TuoteController {
 
 	//Tuotteen tallentaminen
 	@RequestMapping(value = "/saveTuote", method = RequestMethod.POST)
-	public String saveTuote(@Valid @ModelAttribute("tuote") Tuote tuote, BindingResult bindingResult, Model model) {
+	public String saveTuote(@Valid @ModelAttribute("tuote") Tuote tuote, BindingResult bindingResult, Model model, @RequestParam("kuva") String kuva) {
 		if (bindingResult.hasErrors()) {
 			System.out.println("Virhe" + tuote);
 			model.addAttribute("valmistajat", vrepository.findAll());
 			return "addTuote";
 		}
-
+		
+		tuote.setKuva(kuva);
 		trepository.save(tuote);
 		return "redirect:tuotelista";
 	}

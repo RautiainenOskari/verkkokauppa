@@ -35,6 +35,9 @@
 			<span th:if="${#fields.hasErrors('hinta')}" th:errors="*{hinta}">error</span>
 			<div style="clear: both; display: block; height: 20px;"></div>
 			
+			<label for="kuva">Kuva URL</label>
+			<input type="text" id="kuva" th:field="*{kuva}" />
+			
 			
 			<input type="submit" value="Tallenna"></input>
 		</form>

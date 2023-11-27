@@ -22,20 +22,19 @@ public class WebSecurityConfig {
 	private UserDetailServiceImpl userDetailService;
 
 	private static final AntPathRequestMatcher[] WHITE_LIST_URLS = { 
-			new AntPathRequestMatcher("/tuotelistat/**"),
-			new AntPathRequestMatcher("/index/**") };
- 
-	private static final AntPathRequestMatcher[] ADMIN_LIST_URLS = { 
-			new AntPathRequestMatcher("/admin/**")};
+			new AntPathRequestMatcher("/tuotelista/**"),
+			new AntPathRequestMatcher("/kuvat/**"),
+			new AntPathRequestMatcher("/", "/index") };
  
 
 	@Bean
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorizeRequest -> authorizeRequest
-				.requestMatchers(antMatcher("/tuotelistat/**")).permitAll()
-				.requestMatchers(antMatcher("/index/**")).permitAll()
-				.requestMatchers(WHITE_LIST_URLS).permitAll().requestMatchers(ADMIN_LIST_URLS)
-				.hasAuthority("ADMIN")
+				.requestMatchers(antMatcher("/tuotelista/**")).permitAll()
+				.requestMatchers(antMatcher("/kuvat/**")).permitAll()
+				.requestMatchers(antMatcher("/index")).permitAll()
+				.requestMatchers(antMatcher("/")).permitAll()
+				.requestMatchers(WHITE_LIST_URLS).permitAll()
 				.anyRequest().authenticated())
 				.headers(headers -> headers
 						.frameOptions(frameOptions -> frameOptions.disable())) 

@@ -36,7 +36,7 @@ public class RestTuoteController {
 	}
 
 	//Listaa valmistajat
-	@RequestMapping(value = "/valmistajat", method = RequestMethod.GET)
+	@RequestMapping(value = "/valmistajatRest", method = RequestMethod.GET)
 	public @ResponseBody List<Valmistaja> valmistajaListaRest() {
 		return (List<Valmistaja>) vrepository.findAll();
 	}
