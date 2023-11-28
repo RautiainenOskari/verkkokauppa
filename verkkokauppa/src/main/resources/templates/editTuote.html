@@ -7,17 +7,19 @@
 <body>
 	<h1>Muokkaa Tuotteen Tietoja</h1>
 	<div>
-		<form th:object="${tuote}" th:action="@{../saveTuote}" action="#" method="post">
+		<form th:object="${tuote}" th:action="@{../saveTuoteEdit}" action="#" method="post">
 		
 		<label for="id"></label>
 			<input type="hidden" id="id" th:field="*{id}" readonly="readonly"/>
 		
 		  	<label for="tyyppi">Nimi</label>
 			<input type="text" id="nimi" th:field="*{nimi}" />
+			<span th:if="${#fields.hasErrors('nimi')}" th:errors="*{nimi}">error</span>
 			<div style="clear: both; display: block; height: 20px;"></div>
 			
 		  	<label for="vari">Väri</label>
 			<input type="text" id="vari" th:field="*{vari}" />
+			<span th:if="${#fields.hasErrors('vari')}" th:errors="*{vari}">error</span>
 			<div style="clear: both; display: block; height: 20px;"></div>
 			
 			<div class="form-group" style="clear: both; display: block; height: 40px;">
@@ -29,17 +31,21 @@
 			
 			<label for="julkaisupaivamaara">Julkaisuvuosi</label>
 			<input type="text" id="julkaisupaivamaara" th:field="*{julkaisupaivamaara}" />
+			<span th:if="${#fields.hasErrors('Julkaisupaivamaara')}" th:errors="*{Julkaisupaivamaara}">error</span>
 			<div style="clear: both; display: block; height: 20px;"></div>
 			
 			<label for="hinta">Hinta</label>
 			<input type="text" id="hinta" th:field="*{hinta}" />
+			<span th:if="${#fields.hasErrors('hinta')}" th:errors="*{hinta}">error</span>
 			<div style="clear: both; display: block; height: 20px;"></div>
 			
 			<label for="kuva">Kuva URL</label>
 			<input type="text" id="kuva" th:field="*{kuva}" />
-			
+			<b>/kuvat/(kuvan nimi.jpg)</b>
+			<br>
 			<input type="submit" value="Tallenna"></input>
 		</form>
 	</div>
+	<a href="/tuotelista" class="btn btn-primary">Takaisin</a>
 </body>
 </html>

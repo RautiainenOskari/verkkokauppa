@@ -66,6 +66,21 @@ public class TuoteController {
 		trepository.save(tuote);
 		return "redirect:tuotelista";
 	}
+	
+	//Tuotteen muokkauksen tallentaminen
+		@RequestMapping(value = "/saveTuoteEdit", method = RequestMethod.POST)
+		public String saveTuoteEdit(@Valid @ModelAttribute("tuote") Tuote tuote, BindingResult bindingResult, Model model, @RequestParam("kuva") String kuva) {
+			if (bindingResult.hasErrors()) {
+				System.out.println("Virhe" + tuote);
+				model.addAttribute("valmistajat", vrepository.findAll());
+				return "editTuote";
+			}
+			
+			tuote.setKuva(kuva);
+			trepository.save(tuote);
+			return "redirect:tuotelista";
+		}
+
 
 	//Listaa valmistajat
 	@RequestMapping("/valmistajat")
