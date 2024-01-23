@@ -1,4 +1,4 @@
-# verkkokauppa
+# Verkkokauppa
 Backend kurssi projekti -Oskari Rautiainen
 
 About: Verkkokauppa eri teknologian tuotteille.
